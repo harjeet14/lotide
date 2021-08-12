@@ -5,8 +5,6 @@ const assertEqual = (actual, expected) => {
     console.log(`❌ Assertion Failed: [${actual}] !== [${expected}]`);
   }
 };
-// assertEqual("Lighthouse Labs", "Bootcamp");
-// assertEqual(1, 1);
 const eqArrays = (a, b) => {
 
   if (a === b) return true;
@@ -23,22 +21,22 @@ const eqObjects = function (object1, object2) {
 
   let object1KeyValue = Object.keys(object1);
   let object2KeyValue = Object.keys(object2);
-  if (object1KeyValue.length !== object2KeyValue.length) {
-    return false;
-  } else {
+  if (object1KeyValue.length === object2KeyValue.length) {
     for (let key of object1KeyValue) {
       if (Array.isArray(object1[key])) {
-        if (!Array.isArray(object2[key]) ||
-          !eqArrays(object1[key], object2[key])) {
+        if (!eqArrays(object1[key], object2[key])) {
+          return false;
+        }
+      } else {
+        if (object1[key] !== object2[key]) {
           return false;
         }
       }
-      else if (object1[key] !== object2[key]) {
-        return false;
-      }
     }
-    return true;
+  } else {
+    return false;
   }
+  return true;
 };
 
 const ab = { a: "1", b: "2" };
